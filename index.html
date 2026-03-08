@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نرجس - عيد ميلاد سعيد</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        /* تأثيرات الخلفية */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        /* المحتوى الرئيسي */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* العنوان الرئيسي */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .main-title {
+            font-size: clamp(3rem, 10vw, 6rem);
+            background: linear-gradient(45deg, #FFD700, #FFA500, #FF69B4, #FFD700);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 5s ease infinite, glow 2s ease-in-out infinite alternate;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px rgba(255,215,0,0.5);
+        }
+        
+        @keyframes gradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px rgba(255,215,0,0.5)); }
+            to { filter: drop-shadow(0 0 40px rgba(255,215,0,0.8)); }
+        }
+        
+        .subtitle {
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            color: #FFD700;
+            margin-bottom: 40px;
+        }
+        
+        /* شبكة الألعاب */
+        .games-section {
+            margin: 40px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            color: #FFD700;
+            margin-bottom: 30px;
+            text-shadow: 0 0 20px rgba(255,215,0,0.3);
+        }
+        
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .game-card {
+            background: rgba(255,255,255,0.05);
+            border: 2px solid rgba(255,215,0,0.3);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+        }
+        
+        .game-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: #FFD700;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 30px rgba(255,215,0,0.2);
+        }
+        
+        .game-icon {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .game-title {
+            font-size: 1.4rem;
+            color: #FFD700;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .game-desc {
+            font-size: 1rem;
+            color: #ccc;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .play-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #1a1a2e;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .play-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(255,215,0,0.4);
+        }
+        
+        /* الألعاب الداخلية */
+        .mini-games {
+            margin: 50px 0;
+        }
+        
+        .puzzle-box {
+            background: rgba(0,0,0,0.3);
+            border: 3px solid #00CED1;
+            border-radius: 25px;
+            padding: 30px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .puzzle-title {
+            color: #00CED1;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .scramble-letters {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .letter {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border: 3px solid #00CED1;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #00CED1;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .letter:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px #00CED1;
+        }
+        
+        input[type="text"] {
+            padding: 15px 25px;
+            font-size: 1.2rem;
+            border: 2px solid #FFD700;
+            border-radius: 50px;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            text-align: center;
+            margin: 15px;
+            width: 250px;
+            outline: none;
+        }
+        
+        input[type="text"]:focus {
+            box-shadow: 0 0 20px rgba(255,215,0,0.3);
+        }
+        
+        /* رسالة عيد الميلاد */
+        .birthday-message {
+            text-align: center;
+            padding: 60px 20px;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+            margin: 40px 0;
+        }
+        
+        .birthday-text {
+            font-size: clamp(2rem, 6vw, 3rem);
+            color: #FFD700;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        /* زر الكونفيتي */
+        .confetti-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #FFD700, #FF69B4);
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+            z-index: 1000;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .confetti-btn:hover {
+            transform: scale(1.2);
+        }
+        
+        /* التذييل */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #888;
+            border-top: 1px solid rgba(255,215,0,0.2);
+            margin-top: 50px;
+        }
+        
+        .heart {
+            color: #ff1493;
+            animation: heartbeat 1.5s infinite;
+            display: inline-block;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+        
+        /* للشاشات الصغيرة */
+        @media (max-width: 768px) {
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .letter {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- نجوم الخلفية -->
+    <div class="stars" id="stars"></div>
+    
+    <div class="container">
+        <!-- العنوان الرئيسي -->
+        <section class="hero">
+            <h1 class="main-title">🌸 نرجس 🌸</h1>
+            <p class="subtitle">كل عام وأنتِ بخير! عيد ميلاد سعيد</p>
+        </section>
+        
+        <!-- قسم الألعاب الخارجية -->
+        <section class="games-section">
+            <h2 class="section-title">🎮 العبي الآن</h2>
+            
+            <div class="games-grid">
+                <!-- لعبة 1 -->
+                <div class="game-card" onclick="window.open('https://playpager.com/embed/chess/index.html', '_blank')">
+                    <span class="game-icon">♟️</span>
+                    <h3 class="game-title">شطرنج ملكي</h3>
+                    <p class="game-desc">تحدي الذكاء والاستراتيجية في لعبة الشطرنج الكلاسيكية</p>
+                    <button class="play-btn">العب الآن ↗</button>
+                </div>
+                
+                <!-- لعبة 2 -->
+                <div class="game-card" onclick="window.open('https://playpager.com/embed/checkers/index.html', '_blank')">
+                    <span class="game-icon">⭕</span>
+                    <h3 class="game-title">لعبة الداما</h3>
+                    <p class="game-desc">استراتيجية وذكاء في لعبة الداما التقليدية</p>
+                    <button class="play-btn">العب الآن ↗</button>
+                </div>
+                
+                <!-- لعبة 3 -->
+                <div class="game-card" onclick="window.open('https://playpager.com/embed/sudoku/index.html', '_blank')">
+                    <span class="game-icon">🔢</span>
+                    <h3 class="game-title">سودوكو</h3>
+                    <p class="game-desc">اختبري ذكاءك مع لعبة الأرقام الشهيرة</p>
+                    <button class="play-btn">العب الآن ↗</button>
+                </div>
+                
+                <!-- لعبة 4 -->
+                <div class="game-card" onclick="window.open('https://playpager.com/embed/solitaire/index.html', '_blank')">
+                    <span class="game-icon">🃏</span>
+                    <h3 class="game-title">سوليتير</h3>
+                    <p class="game-desc">لعبة الورق الكلاسيكية الممتعة</p>
+                    <button class="play-btn">العب الآن ↗</button>
+                </div>
+                
+                <!-- لعبة 5 -->
+                <div class="game-card" onclick="window.open('https://www.girlsgogames.com/', '_blank')">
+                    <span class="game-icon">👗</span>
+                    <h3 class="game-title">ألعاب بنات</h3>
+                    <p class="game-desc">تلبيس، طبخ، مكياج وتصميم أزياء</p>
+                    <button class="play-btn">زيارة الموقع ↗</button>
+                </div>
+                
+                <!-- لعبة 6 -->
+                <div class="game-card" onclick="window.open('https://poki.com/en/girls', '_blank')">
+                    <span class="game-icon">💄</span>
+                    <h3 class="game-title">ألعاب Poki</h3>
+                    <p class="game-desc">مجموعة رائعة من الألعاب المجانية للبنات</p>
+                    <button class="play-btn">زيارة الموقع ↗</button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- لغز تفاعلي -->
+        <section class="mini-games">
+            <div class="puzzle-box">
+                <h3 class="puzzle-title">🧩 حلّي اللغز</h3>
+                <p style="margin-bottom: 20px; color: #ccc;">رتبي الحروف لتكوين اسمكِ الجميل:</p>
+                
+                <div class="scramble-letters">
+                    <div class="letter" onclick="animateLetter(this)">س</div>
+                    <div class="letter" onclick="animateLetter(this)">ر</div>
+                    <div class="letter" onclick="animateLetter(this)">ج</div>
+                    <div class="letter" onclick="animateLetter(this)">ن</div>
+                </div>
+                
+                <input type="text" id="puzzleAnswer" placeholder="اكتبي الإجابة..." maxlength="4">
+                <br>
+                <button class="play-btn" onclick="checkAnswer()">تحققي</button>
+                <p id="puzzleResult" style="margin-top: 15px; font-size: 1.2rem; min-height: 30px;"></p>
+            </div>
+        </section>
+        
+        <!-- رسالة عيد الميلاد -->
+        <section class="birthday-message">
+            <div class="birthday-text">🎂🎉 عيد ميلاد سعيد يا نرجس! 🎉🎂</div>
+            <p style="font-size: 1.2rem; color: #FFD700; max-width: 600px; margin: 0 auto; line-height: 2;">
+                أتمنى لكِ يوماً مليئاً بالفرح والسعادة<br>
+                وأن تتحقق كل أمانيكِ في هذه السنة الجديدة
+            </p>
+        </section>
+        
+        <!-- التذييل -->
+        <footer>
+            <p style="font-size: 1.2rem;">
+                مع كل الحب <span class="heart">❤️</span><br>
+                هدية مُعدّة بكل حب لنرجس
+            </p>
+        </footer>
+    </div>
+    
+    <!-- زر الكونفيتي -->
+    <button class="confetti-btn" onclick="createConfetti()" title="احتفلي!">🎊</button>
+    
+    <script>
+        // إنشاء النجوم
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.width = Math.random() * 3 + 'px';
+                star.style.height = star.style.width;
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        //动画 الحرف
+        function animateLetter(el) {
+            el.style.transform = 'scale(1.3) rotate(10deg)';
+            setTimeout(() => {
+                el.style.transform = 'scale(1) rotate(0deg)';
+            }, 300);
+        }
+        
+        // التحقق من الإجابة
+        function checkAnswer() {
+            const answer = document.getElementById('puzzleAnswer').value.trim();
+            const result = document.getElementById('puzzleResult');
+            
+            if (answer === 'نرجس') {
+                result.innerHTML = '🎉 أحسنتِ! الإجابة صحيحة!';
+                result.style.color = '#00ff00';
+                createConfetti();
+            } else {
+                result.innerHTML = '❌ حاولي مرة أخرى!';
+                result.style.color = '#ff6666';
+            }
+        }
+        
+        // إنشاء الكونفيتي
+        function createConfetti() {
+            const colors = ['#FFD700', '#FF69B4', '#00CED1', '#FF6347', '#00FF00', '#9400D3'];
+            
+            for (let i = 0; i < 60; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.style.cssText = `
+                        position: fixed;
+                        width: 12px;
+                        height: 12px;
+                        background: ${colors[Math.floor(Math.random() * colors.length)]};
+                        left: ${Math.random() * 100}vw;
+                        top: -10px;
+                        border-radius: 50%;
+                        z-index: 9999;
+                        pointer-events: none;
+                    `;
+                    document.body.appendChild(confetti);
+                    
+                    const animation = confetti.animate([
+                        { transform: 'translate(0, 0) rotate(0deg)', opacity: 1 },
+                        { transform: `translate(${(Math.random() - 0.5) * 300}px, 100vh) rotate(${Math.random() * 720}deg)`, opacity: 0 }
+                    ], {
+                        duration: 2500 + Math.random() * 2000,
+                        easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                    });
+                    
+                    animation.onfinish = () => confetti.remove();
+                }, i * 25);
+            }
+        }
+        
+        // بدء التشغيل
+        window.addEventListener('load', createStars);
+        
+        // تأثير الكتابة على العنوان
+        const title = document.querySelector('.main-title');
+        title.addEventListener('click', function() {
+            this.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+            }, 200);
+            createConfetti();
+        });
+    </script>
+</body>
+</html>
