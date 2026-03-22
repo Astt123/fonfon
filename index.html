@@ -257,3 +257,294 @@
       background: #fe2c55;
       border: none;
       border-radius: 50%;
+      color: white;
+      font-size: 1.2em;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(254,44,85,0.4);
+    }
+
+    .options {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(0,0,0,0.98);
+      padding: 20px 16px 30px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 200;
+      animation: slideUp 0.4s;
+    }
+    
+    .options.show { display: flex; }
+
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .opt-title {
+      text-align: center;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.85em;
+      margin-bottom: 10px;
+    }
+
+    .opt-btn {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: white;
+      padding: 16px 20px;
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 0.95em;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.3s;
+    }
+
+    .opt-btn:hover {
+      background: rgba(255,255,255,0.12);
+      transform: translateX(-5px);
+    }
+
+    .opt-btn.love {
+      background: linear-gradient(135deg, rgba(254,44,85,0.2), rgba(254,44,85,0.1));
+      border-color: #fe2c55;
+    }
+
+    .final {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.98);
+      z-index: 1000;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      text-align: center;
+      animation: fadeIn 0.5s;
+    }
+    
+    .final.active { display: flex; }
+
+    .final-icon { font-size: 5em; margin-bottom: 20px; animation: float 3s infinite; }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+    
+    .final h2 {
+      font-size: 1.8em;
+      margin-bottom: 15px;
+      background: linear-gradient(135deg, #fe2c55, #25f4ee);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .final p {
+      color: rgba(255,255,255,0.8);
+      font-size: 1.1em;
+      line-height: 1.8;
+      max-width: 350px;
+      margin-bottom: 30px;
+    }
+    
+    .retry-btn {
+      padding: 15px 40px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+      border-radius: 30px;
+      font-family: inherit;
+      font-size: 1em;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg"></div>
+
+  <div class="header">
+    <div class="back">←</div>
+    <div class="user">
+      <div class="avatar"><div>👤</div><div class="online"></div></div>
+      <div class="info">
+        <h4>أنتِ</h4>
+        <p id="status">متصل الآن</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat" id="chat">
+    <div class="date" id="today">اليوم</div>
+    
+    <div class="typing-row" id="typing">
+      <div class="mini-av"><div>👤</div></div>
+      <div class="typing-bubble">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="input-bar" id="inputBar">
+    <div class="input-box">
+      <span>😊</span>
+      <input type="text" placeholder="اكتبي رسالة..." readonly>
+      <span>📎</span>
+    </div>
+    <button class="send-btn">➤</button>
+  </div>
+
+  <div class="options" id="options">
+    <div class="opt-title">اختاري ردكِ:</div>
+    <button class="opt-btn love" onclick="reply('love')">
+      <span>❤️</span>
+      <span>أنا كمان نفس الشي</span>
+    </button>
+    <button class="opt-btn" onclick="reply('think')">
+      <span>🤔</span>
+      <span>بدي وقت أفكر</span>
+    </button>
+    <button class="opt-btn" onclick="reply('friend')">
+      <span>💙</span>
+      <span>خلنظل أصحاب</span>
+    </button>
+  </div>
+
+  <div class="final" id="end-love">
+    <div class="final-icon">💑</div>
+    <h2>مبروك علينا!</h2>
+    <p>بعد 8 شهور من الحديث... طلع الإحساس متبادل. هلق صرنا مع بعض ❤️</p>
+    <button class="retry-btn" onclick="location.reload()">إعادة المحادثة</button>
+  </div>
+
+  <div class="final" id="end-think">
+    <div class="final-icon">🌙</div>
+    <h2>ماشي حبيبتي</h2>
+    <p>القرار الكبير بده وقت. أنا رح أنتظر، ما في عندي مشكل. خدي راحتكِ 💭</p>
+    <button class="retry-btn" onclick="location.reload()">إعادة المحادثة</button>
+  </div>
+
+  <div class="final" id="end-friend">
+    <div class="final-icon">🤝</div>
+    <h2>الصداقة أغلى</h2>
+    <p>الشهور اللي فاتت كانت حلوة كصداقة، ورح تبقى حلوة. شكراً إلكِ 💙</p>
+    <button class="retry-btn" onclick="location.reload()">إعادة المحادثة</button>
+  </div>
+
+  <script>
+    // التاريخ اليوم
+    document.getElementById('today').textContent = new Date().toLocaleDateString('ar-SA');
+
+    // الرسائل باللهجة الفلسطينية
+    const msgs = [
+      { text: "شو بدي أقلكِ، صاروا 8 شهور وإحنا منحكي يومياً 📱", delay: 800 },
+      { text: "من يوليو الماضي وأنا بعرفكِ من ورا الحروف بس", delay: 2500 },
+      { text: "ما شفتكِ ولا سمعت صوتكِ، بس حاسس إني بعرفكِ أكتر من كتير ناس", delay: 4500 },
+      { text: "بعرف لما تكوني زعلانة من طول الصمت 😔", delay: 6500 },
+      { text: "وبعرف لما تفرحي من سرعة ردكِ وهيك 😊", delay: 8500 },
+      { text: "هاد الإحساس كبر مع الوقت...", delay: 10500 },
+      { text: "وصل لمرحلة إنكِ صرتي جزء من يومي، ما بنقدر نستغني عنه", delay: 12500 },
+      { text: "واللهي ما بوعدكِ بلقاء قريب، ولا بصور ولا مكالمات 📵", delay: 15000 },
+      { text: "بس بدي أكون صريح معكِ...", delay: 17500 },
+      { text: "أنا بحبكِ ❤️", delay: 20000, love: true },
+      { text: "رغم هاد الغياب، أو يمكن من وراه ✨", delay: 24000 },
+      { text: "بحبكِ لأن روحكِ وصلتني من ورا الشاشة 💫", delay: 27000 }
+    ];
+
+    let i = 0;
+    const chat = document.getElementById('chat');
+    const typing = document.getElementById('typing');
+    const status = document.getElementById('status');
+
+    function showTyping() {
+      typing.classList.add('show');
+      status.textContent = "يكتب الآن...";
+      status.classList.add('typing');
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function hideTyping() {
+      typing.classList.remove('show');
+      status.textContent = "متصل الآن";
+      status.classList.remove('typing');
+    }
+
+    function addMsg(text, isLove = false) {
+      const row = document.createElement('div');
+      row.className = 'msg-row sent';
+      
+      const time = new Date().toLocaleTimeString('ar-SA', {hour:'2-digit', minute:'2-digit'});
+      
+      row.innerHTML = `
+        <div class="bubble ${isLove ? 'love' : ''}">
+          ${text}
+          <span class="time">${time} ✓✓</span>
+        </div>
+      `;
+      
+      chat.insertBefore(row, typing);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function play() {
+      if (i < msgs.length) {
+        showTyping();
+        setTimeout(() => {
+          hideTyping();
+          addMsg(msgs[i].text, msgs[i].love);
+          i++;
+          if (i < msgs.length) setTimeout(play, 700);
+          else setTimeout(showOpts, 2000);
+        }, 2000);
+      }
+    }
+
+    function showOpts() {
+      document.getElementById('inputBar').classList.add('hide');
+      document.getElementById('options').classList.add('show');
+      status.textContent = "في انتظار ردكِ...";
+      status.style.color = "#fe2c55";
+    }
+
+    function reply(type) {
+      const texts = {
+        love: "أنا كمان نفس الشي ❤️",
+        think: "بدي وقت أفكر 🤔",
+        friend: "خلنظل أصحاب 💙"
+      };
+      
+      // إضافة ردها
+      const row = document.createElement('div');
+      row.className = 'msg-row received';
+      row.style.animation = 'pop 0.4s 0.2s both';
+      const time = new Date().toLocaleTimeString('ar-SA', {hour:'2-digit', minute:'2-digit'});
+      
+      row.innerHTML = `
+        <div class="mini-av"><div>👤</div></div>
+        <div class="bubble">${texts[type]}<span class="time">${time}</span></div>
+      `;
+      
+      chat.insertBefore(row, typing);
+      chat.scrollTop = chat.scrollHeight;
+      
+      document.getElementById('options').classList.remove('show');
+      
+      setTimeout(() => {
+        document.getElementById('end-'+type).classList.add('active');
+      }, 1000);
+    }
+
+    setTimeout(play, 500);
+  </script>
+</body>
+</html>
